@@ -232,14 +232,17 @@ php_fpm_conf() {
 }
 
 ubuntu_dep() {
-  # Install deps for adding repos
+  # Install deps dasar (tetap perlu untuk keamanan)
   install_packages "software-properties-common apt-transport-https ca-certificates gnupg"
 
-  # Add Ubuntu universe repo
-  add-apt-repository universe -y
+  # Kita lewati add-apt-repository universe karena sudah diaktifkan manual
+  echo "Universe repository already configured manualy. Skipping..."
 
-  # Add PPA for PHP (we need 8.3)
-  LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+  # Kita lewati PPA Ondrej karena PHP 8.3 sudah tersedia di repo native Ubuntu 24.04
+  echo "Using native PHP 8.3 from Ubuntu 24.04 repositories. Skipping PPA..."
+  
+  # Jalankan update untuk memastikan semua list terbaca
+  apt-get update -y
 }
 
 debian_dep() {
